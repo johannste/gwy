@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <title id="title">‎</title>
+    <link href="css/app.5abb5c76.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/LN-Router4.e260aa41.css">
+    <script src="js/vue.min.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            display: block;
+            font-size: 100px;
+        }
+
+        input {
+            background: none !important;
+        }
+
+        #app {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div data-v-7f48874a="" class="animation-index" style="background: rgb(255, 255, 255); height: 100vh;">
+        <img data-v-7f48874a="" src="img/headimg.33a6a186.png"
+             style="width: 100%; position: absolute; top: 0; left: 0;">
+        <div data-v-7f48874a="" class="goback">
+            <img data-v-7f48874a="" src="img/goBack.png">
+        </div>
+        <div data-v-7f48874a="" class="page-header">
+            <div data-v-7f48874a="" class="header-text"> 健康通行码
+                <div data-v-7f48874a="" style="border-bottom: 2px solid rgb(233, 242, 251);"></div>
+            </div>
+            <div data-v-7f48874a="" class="header-text"> 辽事通码
+                <div data-v-7f48874a="" style="border-bottom: 2px solid rgb(233, 242, 251); display: none;"></div>
+            </div>
+        </div>
+        <div data-v-7f48874a="" class="container">
+            <div data-v-7f48874a="" class="ewmboxs">
+                <div data-v-7f48874a="" class="nameBox">
+                    <img data-v-7f48874a="" src="img/jhead.e46c3b23.png" alt="">
+                    <img data-v-7f48874a="" src="img/lhead.6facda1b.png" alt="" style="display: none;">
+                    <span id="userName">{{ userName }}</span>
+                </div>
+                <div data-v-7f48874a="" class="showTimeBox">
+                    <div data-v-7f48874a="" id="showDay" class="showDay">{{ time }}</div>
+                    <div data-v-7f48874a="" id="showTime" class="showTime">{{ date }}</div>
+                </div>
+                <div data-v-7f48874a="" class="canvasBox">
+                    <div data-v-7f48874a="" id="canvas" class="canvas">
+                        <canvas width="235" height="235" style="display: none;"></canvas>
+                        <img alt="Scan me!" src="img/qrCode.png" style="display: block;">
+                    </div>
+                </div>
+                <p data-v-7f48874a="" class="refreshEWM">
+                    <img data-v-7f48874a="" src="img/refresh.png" alt="刷新" style="width: 5%;"> 刷新二维码
+                </p>
+                <div data-v-7f48874a="" class="myInfo">
+                    <img data-v-7f48874a="" src="img/btnView.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            userName: 'aaa',
+            date: '',
+            time: ''
+        },
+        mounted: function (){
+            this.userName = this.getUrlParam(location.href, 'userName')
+            setInterval(()=>{
+                const date = new Date()
+                this.time = date.getMonth() + 1 + '月' + date.getDate() + '日'
+                const hour = date.getHours()
+                const minute = date.getMinutes()
+                const second = date.getSeconds()
+                this.date = (hour < 10 ? '0' + hour : hour) + ':' + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second)
+            }, 1000)
+        },
+        methods: {
+            getUrlParam(urls, name) {
+                var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+                var matcher = pattern.exec(urls);
+                var items = null;
+                if (matcher != null) {
+                    try {
+                        items = decodeURIComponent(decodeURIComponent(matcher[1]));
+                    } catch (e) {
+                        try {
+                            items = decodeURIComponent(matcher[1]);
+                        } catch (e) {
+                            items = matcher[1];
+                        }
+                    }
+                }
+                return items;
+            }
+        }
+    })
+</script>
+</body>
+</html>
